@@ -7,9 +7,13 @@
       name: postgresql
       enabled: yes
 
+  - name: Check for postgress data     
+    stat: path=/var/lib/pgsql/data
+    register: pgdb
+
   - name: initilize postgres
     command: postgresql-setup initdb
-    ignore_errors: yes
+    when: not pgdb.stat.exists
     
   - name: initilize postgres some more
     command: chkconfig postgresql on
