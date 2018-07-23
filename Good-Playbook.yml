@@ -18,8 +18,9 @@
 
   roles:
   - haproxy
-    tags: 
-      - haproxy   
+    
+  tags: 
+  - haproxy   
 
 - name: deploy postgres
   gather_facts: false
@@ -37,8 +38,8 @@
   roles:
   - tomcat
   
-    tags: 
-      - tomcat 
+  tags: 
+  - tomcat 
 
 
 - name: deploy apache
@@ -49,8 +50,8 @@
   roles:
   - httpd 
 
-    tags: 
-      - httpd 
+  tags: 
+  - httpd 
 
 - name: Set index.html on app 1
   hosts: apps
@@ -64,9 +65,8 @@
       src: index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
     when: ansible_hostname == "app1"
-
     tags: 
-      - index     
+    - index     
     
     
 - name: Set index.html on app 2
@@ -82,7 +82,6 @@
       src: index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
     when: ansible_hostname == "app2"
-
     tags: 
-      - index 
+    - index 
 
