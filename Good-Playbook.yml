@@ -40,30 +40,34 @@
   become: true
   hosts: apps
   
-   roles:
+  roles:
   - httpd 
 
 - name: Set index.html on app 1
-  hosts: app1
-  gather_facts: false
+  hosts: app
+  gather_facts: true
   become: true
+  inventory_hostname: "app1"
 
   tasks:
   - name: copy static index.html to tomcat webapps/ansible/index.html
-    template:
-      src: index.html.app1
+    template:               -
+      src: index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
-
+    when: ansible_hostname == "app1"
+    
 - name: Set index.html on app 2
-  hosts: app2
-  gather_facts: false
+  hosts: app
+  gather_facts: true
   become: true
+  inventory_hostname: "app2"
 
   tasks:
   - name: copy static index.html to tomcat webapps/ansible/index.html
-    template:
-      src: index.html.app2
+    template:               -
+      src: index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
+    when: ansible_hostname == "app2"
 
 
 
