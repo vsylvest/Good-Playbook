@@ -44,7 +44,7 @@
   - httpd 
 
 - name: Set index.html on app 1
-  hosts: app
+  hosts: apps
   gather_facts: true
   become: true
   vars:
@@ -58,7 +58,6 @@
     debug:
       message: "{{ facts }}"
 
-  tasks:
   - name: copy static index.html to tomcat app1
     template:
       src: index.html.j2
