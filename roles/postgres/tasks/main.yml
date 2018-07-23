@@ -9,6 +9,7 @@
 
   - name: initilize postgres
     command: postgresql-setup initdb
+    ignore_errors: yes
     
   - name: initilize postgres some more
     command: chkconfig postgresql on
