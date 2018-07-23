@@ -49,13 +49,21 @@
   become: true
   vars:
     inventory_hostname: app1
+  tasks:
+  - name: Register Hostname
+    setup:
+    register: facts
+
+  - name: print out facts
+    debug:
+      message: "{{ facts }}"
 
   tasks:
   - name: copy static index.html to tomcat app1
     template:
       src: index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
-    when: ansible_hostname == "app1"
+    when: facts.ansible_hostname == "app1"
     
 - name: Set index.html on app 2
   hosts: app
