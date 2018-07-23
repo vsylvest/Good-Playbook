@@ -12,8 +12,7 @@
     template:
       src: ./haproxy.cfg.j2
       dest: /etc/haproxy/haproxy.cfg
-      with_items: {{ servers }}
-      
+
   - name: restart HAproxy
     service:
       name: haproxy
