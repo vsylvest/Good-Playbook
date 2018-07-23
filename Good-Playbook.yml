@@ -47,7 +47,8 @@
   hosts: app
   gather_facts: true
   become: true
-  inventory_hostname: app1
+  vars:
+    inventory_hostname: app1
 
   tasks:
   - name: copy static index.html to tomcat app1
@@ -60,7 +61,8 @@
   hosts: app
   gather_facts: true
   become: true
-  inventory_hostname: app2
+  vars:
+    inventory_hostname: app2
 
   tasks:
   - name: copy static index.html to app2
