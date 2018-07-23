@@ -64,13 +64,13 @@
     template:
       src: index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
-    when: ansible_hostname == "app1"
+    when: ansible_hostname == app1
     tags: 
     - index     
     
     
 - name: Set index.html on app 2
-  hosts: app
+  hosts: apps
   gather_facts: true
   become: true
   vars:
@@ -81,7 +81,7 @@
     template:
       src: index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
-    when: ansible_hostname == "app2"
+    when: ansible_hostname == app2
     tags: 
     - index 
 
