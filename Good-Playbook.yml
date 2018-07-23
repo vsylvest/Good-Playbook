@@ -47,11 +47,11 @@
   hosts: app
   gather_facts: true
   become: true
-  inventory_hostname: "app1"
+  inventory_hostname: app1
 
   tasks:
-  - name: copy static index.html to tomcat webapps/ansible/index.html
-    template:               -
+  - name: copy static index.html to tomcat app1
+    template:
       src: index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
     when: ansible_hostname == "app1"
@@ -60,11 +60,11 @@
   hosts: app
   gather_facts: true
   become: true
-  inventory_hostname: "app2"
+  inventory_hostname: app2
 
   tasks:
-  - name: copy static index.html to tomcat webapps/ansible/index.html
-    template:               -
+  - name: copy static index.html to app2
+    template:
       src: index.html.j2
       dest: /usr/share/tomcat/webapps/ansible/index.html
     when: ansible_hostname == "app2"
