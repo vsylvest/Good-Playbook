@@ -56,7 +56,7 @@
 
   - name: print out facts
     debug:
-      message: "{{ facts }}"
+      msg: "{{ facts }}"
 
   - name: copy static index.html to tomcat app1
     template:
