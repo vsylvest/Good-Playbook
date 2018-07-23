@@ -35,7 +35,7 @@
 
 - name: deploy tomcat
   hosts: apps
-  gather_facts: false
+  gather_facts: true
   become: true
 
   roles:
@@ -45,46 +45,9 @@
   - tomcat 
 
 
-- name: deploy apache
-  gather_facts: false
-  become: true
-  hosts: apps
-  
-  roles:
-  - httpd 
 
-  tags: 
-  - httpd 
-
-- name: Set index.html on app 1
-  hosts: apps
-  gather_facts: true
-  become: true
-  vars:
-    inventory_hostname: app1
-  tasks:
-  - name: copy static index.html to tomcat app1
-    template:
-      src: index.html.j2
-      dest: /usr/share/tomcat/webapps/ansible/index.html
-    when: ansible_hostname == "app1"
-    tags: 
-    - index     
+ 
     
     
-- name: Set index.html on app 2
-  hosts: apps
-  gather_facts: true
-  become: true
-  vars:
-    inventory_hostname: app2
 
-  tasks:
-  - name: copy static index.html to app2
-    template:
-      src: index.html.j2
-      dest: /usr/share/tomcat/webapps/ansible/index.html
-    when: ansible_hostname == "app2"
-    tags: 
-    - index 
 
