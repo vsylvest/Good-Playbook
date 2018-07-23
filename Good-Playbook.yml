@@ -13,6 +13,8 @@
 
 - name: deploy haproxy
   hosts: frontends
+  vars:
+    servers: "{{ groups['apps'] }}"
   gather_facts: false # remove later! speeds up testing
   become: true
 
