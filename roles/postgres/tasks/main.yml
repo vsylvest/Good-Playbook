@@ -1,0 +1,19 @@
+  - name: install postgres
+    yum:
+      name: postgresql-server
+      state: latest
+    - name: enable postgres at boot
+    service:
+      name: postgresql
+      enabled: yes
+
+  - name: initilize postgres
+    command: postgresql-setup initdb
+    
+  - name: initilize postgres some more
+    command: chkconfig postgresql on
+    
+  - name: start postgres service
+    service:
+      name: postgresql.service
+      state: started

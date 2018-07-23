@@ -1,0 +1,69 @@
+---
+- name: enable repos
+  hosts: all
+  gather_facts: false # remove later! speeds up testing
+  become: true
+
+  tasks:
+  - name: enable repos
+    template:
+      src: ./open_three-tier-app.repo
+      dest: /etc/yum.repos.d/open_three-tier-app.repo
+      mode: 0644
+
+- name: deploy haproxy
+  hosts: frontends
+  gather_facts: false # remove later! speeds up testing
+  become: true
+
+  roles:
+  - haproxy
+
+- name: deploy postgres
+  gather_facts: false
+  become: true
+  hosts: appdbs
+  
+  roles:
+  - postgres
+
+- name: deploy tomcat
+  hosts: apps
+  gather_facts: false
+  become: true
+
+  roles:
+  - tomcat
+
+- name: deploy apache
+  gather_facts: false
+  become: true
+  hosts: apps
+  
+   roles:
+  - httpd 
+
+- name: Set index.html on app 1
+  hosts: app1
+  gather_facts: false
+  become: true
+
+  tasks:
+  - name: copy static index.html to tomcat webapps/ansible/index.html
+    template:
+      src: index.html.app1
+      dest: /usr/share/tomcat/webapps/ansible/index.html
+
+- name: Set index.html on app 2
+  hosts: app2
+  gather_facts: false
+  become: true
+
+  tasks:
+  - name: copy static index.html to tomcat webapps/ansible/index.html
+    template:
+      src: index.html.app2
+      dest: /usr/share/tomcat/webapps/ansible/index.html
+
+
+
